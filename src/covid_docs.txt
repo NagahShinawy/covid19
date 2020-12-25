@@ -1,0 +1,9 @@
+#1- counter increment loop starts from 1
+#1-1- counter increment loop starts from 0
+
+<h3>{{ forloop.counter }} - {{name}}</h3>
+<h3>{{ forloop.counter0 }} - {{name}}</h3>
+
+##################################################
+
+
