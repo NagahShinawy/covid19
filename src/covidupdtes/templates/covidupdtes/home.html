@@ -1,24 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container "> <h1>Covid 19</h1>
-        <button class="btn btn-danger">Delete</button>
+<div class="container "> <h1><a href="{% url 'home' %}" id="home">Covid 19</a></h1>
         {% if covid_data %}
-               <h4>Number of countries are : <span class="results"> {{ results }}</span></h4>
-                <h4> Countries we are interested <span class="results">{{ counts }}</span></h4>
-        <form action="{% url 'home' %}" method="GET" onsubmit="submit">
-                <select name="country" id="country">
+                {% comment %}
+                   <h4>Number of countries are : <span class="results"> {{ results }}</span></h4>
+                    <h4> Countries we are interested <span class="results">{{ counts }}</span></h4>
+                {% endcomment %}
+
+                <h1 id="covid-heading"> <span id="covid">COVID 19</span> WORLDWIDE DATA</h1>
+                <form action="{% url 'home' %}" method="GET" class="d-flex justify-content-center align-items-center">
+                <select name="country" id="country" class="form-control">
+                        {% if request.GET.country %}
+                                <option value="{{request.GET.country}}"> {{request.GET.country}}</option>
+                            {% else %}
+                                <option value="">Choose Country</option>
+                        {% endif %}
                         {% for country_name in countries_names %}
-                        <option value="{{ country_name }}">{{country_name}}</option>
+                                {% if country_name != request.GET.country %} {% comment %} exclude country already exist in menu {% endcomment %}
+                                        <option value="{{ country_name }}">{{ country_name }}</option>
+                                {% endif %}
+
                         {% endfor %}
-                </select>
-                <input type="submit" name="">
+                </select><br>
+                <button class="btn btn-primary">Show</button>
         </form>
-
-        <h3>You are selected{{ selected_country }}</h3>
-        <h5>Active : {{ selected_country.cases.active }}</h5>
-        <h5>Critical : {{ selected_country.cases.critical }}</h5>
-
+                <a id="reset" href="{% url 'home' %}"><button  class="btn btn-secondary">Reset</button></a>
+                {% if selected_country %}
+                        <div id="data">
+                            <button class="btn btn-primary">Country : {{ selected_country.country }}</button>
+                            <button class="btn btn-secondary">New : {{ selected_country.cases.new }}</button>
+                            <button class="btn btn-warning">Active : {{ selected_country.cases.active }}</button>
+                            <button class="btn btn-danger">Critical : {{ selected_country.cases.critical }}</button>
+                            <button class="btn btn-success">Recovered : {{ selected_country.cases.recovered }}</button>
+                            <button class="btn btn-total btn-danger">Total : {{ selected_country.cases.total }}</button>
+                            <button class="btn btn-danger">Death : {{ selected_country.deaths.total }}</button>
+                        </div>
+                {% endif %}
 
         {% else %}
                 <h1>Nothing to show</h1>
