@@ -6,11 +6,19 @@
         {% if covid_data %}
                <h4>Number of countries are : <span class="results"> {{ results }}</span></h4>
                 <h4> Countries we are interested <span class="results">{{ counts }}</span></h4>
-                        <select name="countries" id="countries">
-                                {% for country_name in countries_names %}
-                                <option value="{{ country_name }}">{{country_name}}</option>
-                                {% endfor %}
-                        </select>
+        <form action="{% url 'home' %}" method="GET" onsubmit="submit">
+                <select name="country" id="country">
+                        {% for country_name in countries_names %}
+                        <option value="{{ country_name }}">{{country_name}}</option>
+                        {% endfor %}
+                </select>
+                <input type="submit" name="">
+        </form>
+
+        <h3>You are selected{{ selected_country }}</h3>
+        <h5>Active : {{ selected_country.cases.active }}</h5>
+        <h5>Critical : {{ selected_country.cases.critical }}</h5>
+
 
         {% else %}
                 <h1>Nothing to show</h1>

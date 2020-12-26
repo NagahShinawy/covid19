@@ -4,7 +4,7 @@ import os
 API_KEY = os.environ['API_KEY']
 
 
-def covid_data():
+def get_covid_data():
     url = "https://covid-193.p.rapidapi.com/statistics"
     headers = {
         'x-rapidapi-key': API_KEY,
