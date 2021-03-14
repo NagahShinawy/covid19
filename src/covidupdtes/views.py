@@ -5,7 +5,7 @@ data = get_covid_data()
 
 
 def home(request):
-    print(request.GET)
+    # print(request.GET)
     selected_country = request.GET.get('country')
     if data is not None:
         results = data['results']

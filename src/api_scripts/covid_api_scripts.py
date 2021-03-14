@@ -12,12 +12,12 @@ def get_covid_data():
     }
 
     response = requests.get(url, headers=headers)
-    print(response.status_code)
+    # print(response.status_code)
     if response.status_code == 200:
         data = response.json()
-        print(response.json())
+        # print(response.json())
         counts = data['results']
-        print(counts)
+        # print(counts)
         pd.DataFrame(data['response'][:50]).to_excel('covid19.xlsx', index=False)
         return data
     return None
